@@ -14,6 +14,8 @@ from rl_teacher.episode_logger import EpisodeLogger
 from rl_teacher.utils import slugify
 from rl_teacher.utils import get_timesteps_per_episode
 
+import gym_zooniverse
+
 def main():
     # Tensorflow is not fork-safe, so we must use spawn instead
     # https://github.com/tensorflow/tensorflow/issues/5448#issuecomment-258934405

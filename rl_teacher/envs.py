@@ -127,15 +127,22 @@ class PixelEnvViewer(TransparentWrapper):
 class CompressedPixelViewer(TransparentWrapper):
     def __init__(self, env):
         super().__init__(env)
-        self.observation_space = np.eye(84)  # HACK: This is just so the .shape == (84,84)
+        #self.observation_space = np.eye(84)  # HACK: This is just so the .shape == (84,84)
+        self.observation_space = np.zeros((100,500))  # HACK: This is just so the .shape == (84,84)
 
     def _rgb2gray(self, rgb):
         return np.dot(rgb[..., :3], [0.299, 0.587, 0.114])
+        #return np.dot(rgb[:,:,:3], [0.299, 0.587, 0.114])
+        #return rgb
 
     def _preprocess(self, image):
+        #print(image.shape)
         image = self._rgb2gray(image)
-        image = misc.imresize(image, [84, 84], 'bilinear')
+        #image = misc.imresize(image, [84, 84], 'bilinear')
+        #image = misc.imresize(image, [100, 500], 'bilinear')
         image = image.astype(np.float32) / 128.0 - 1.0
+        #print(image.shape)
+        #print(np.unique(image))
         return image
 
     def _reset(self):
